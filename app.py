@@ -5,6 +5,6 @@ from controllers.dims_from_one_img import get_dims_from_one_img
 app = Flask(__name__)
 
 
-@app.route("/<string:img_path>", methods=['GET', 'POST'])
+@app.route("/scanner/<string:img_path>", methods=['GET', 'POST'])
 def get_volumetric_weight(img_path):
     return get_dims_from_one_img(img_path)
