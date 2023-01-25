@@ -76,12 +76,18 @@ def get_dims_from_one_img(img_path):
         cv2.circle(c, tup(hidden), 4, (255, 255, 0), -1)
         cv2.line(c, tup(two), tup(one), (0, 0, 200), 1)
         cv2.line(c, tup(curr), tup(hidden), (0, 0, 200), 1)
-        # cv2.imshow("Mark", c);
-        # cv2.waitKey(0);
         dims.append((euclidean(two, one) + euclidean(curr, hidden))/2)
     vol_weight = 1
     for d in dims:
         vol_weight *= d
-        print(d)
+    avg_dims = []
+    for k in range(3):
+        avg_dims.append((dims[k] + dims[k + 3])/2)
     vol_weight = vol_weight**0.5
-    return jsonify({'volumetric weight': vol_weight})
+    return jsonify({
+        'volumetric weight': vol_weight,
+        'length' : avg_dims[0],
+        'width' : avg_dims[1],
+        'height' : avg_dims[2],
+        'SKU': 1
+    })
