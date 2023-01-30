@@ -87,7 +87,7 @@ def get_dims_from_one_img(img):
     return jsonify({
         'volumetricWeight': vol_weight,
         'length': avg_dims[0],
-        'breath': avg_dims[1],
+        'breadth': avg_dims[1],
         'height': avg_dims[2],
         'sku': 1
     })
