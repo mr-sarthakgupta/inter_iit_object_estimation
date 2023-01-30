@@ -11,8 +11,8 @@ def tup(point):
     return (int(point[0]), int(point[1]))
 
 
-def get_dims_from_one_img(img_path):
-    img = cv2.imread(img_path)
+def get_dims_from_one_img(img):
+    # img = cv2.imread(img_path)
     scale = 0.25
     h, w = img.shape[:2]
     h = int(scale*h)
