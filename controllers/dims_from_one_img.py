@@ -6,13 +6,15 @@ from imutils import contours as cntrs
 import imutils
 from flask import jsonify
 
-
 def tup(point):
     return (int(point[0]), int(point[1]))
 
 
 def get_dims_from_one_img(img_path):
-    img = cv2.imread(img_path)
+    img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
+    trans_mask = img[:,:,3] == 0
+    img[trans_mask] = [255, 255, 255, 255]
+    img = cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
     scale = 0.25
     h, w = img.shape[:2]
     h = int(scale*h)
@@ -40,6 +42,7 @@ def get_dims_from_one_img(img_path):
     dist_in_cm = 2
     pixel_per_cm_horizontal = dist_in_pixel_horizontal/dist_in_cm
     pixel_per_cm_vertical = dist_in_pixel_vertical/dist_in_cm
+    pixel_per_cm = 0.5*(dist_in_pixel_horizontal + dist_in_pixel_horizontal)
     # neeche waali line me dhyaan se 0 ki jagah 1 krna h
     contour = contours[0]  # just take the first one
     num_points = 999999
@@ -77,13 +80,26 @@ def get_dims_from_one_img(img_path):
         cv2.line(c, tup(two), tup(one), (0, 0, 200), 1)
         cv2.line(c, tup(curr), tup(hidden), (0, 0, 200), 1)
         dims.append((euclidean(two, one) + euclidean(curr, hidden))/2)
+        c = np.copy(copy);
+        cv2.circle(c, tup(two), 4, (255, 0, 0), -1);
+        cv2.circle(c, tup(one), 4, (0,255,0), -1);
+        cv2.circle(c, tup(curr), 4, (0,0,255), -1);
+        cv2.circle(c, tup(hidden), 4, (255,255,0), -1);
+        cv2.line(c, tup(two), tup(one), (0,0,200), 1);
+        cv2.line(c, tup(curr), tup(hidden), (0,0,200), 1);
+        cv2.imshow("Mark", c);
+        cv2.waitKey(0);
+    
     vol_weight = 1
-    for d in dims:
-        vol_weight *= d
+    # for d in dims:
+    #     vol_weight *= d/pixel_per_cm
     avg_dims = []
     for k in range(3):
-        avg_dims.append((dims[k] + dims[k + 3])/2)
-    vol_weight = vol_weight**0.5
+        avg_dims.append((dims[k] + dims[k + 3])/2*pixel_per_cm)
+    for t in avg_dims:
+        vol_weight *= t
+    vol_weight = vol_weight
+    print(vol_weight)
     return jsonify({
         'volumetric weight': vol_weight,
         'length' : avg_dims[0],
