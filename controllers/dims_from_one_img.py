@@ -7,7 +7,6 @@ import imutils
 from flask import jsonify
 import requests
 import math
-from PIL import Image
 
 def tup(point):
     return (int(point[0]), int(point[1]))
