@@ -14,7 +14,7 @@ def tup(point):
 
 ## for cam with the whitener on the brown tripod
 def get_dims_from_one_img_1(img_path):
-    img = open(img_path)
+    img = open(img_path, 'rb')
     response = requests.post(
     'https://api.remove.bg/v1.0/removebg',
     files={'image_file': img},
@@ -102,8 +102,8 @@ def get_dims_from_one_img_1(img_path):
         cv2.circle(c, tup(two), 4, (255, 0, 0), -1);
         cv2.circle(c, tup(one), 4, (0,255,0), -1);
         cv2.line(c, tup(two), tup(one), (0,0,200), 1);
-        cv2.imshow("Mark", c);
-        cv2.waitKey(0);
+        # cv2.imshow("Mark", c);
+        # cv2.waitKey(0);
     vol_weight = 1
     dist_in_cm = []
     # print(len(dims))
@@ -119,7 +119,7 @@ def get_dims_from_one_img_1(img_path):
         avg_dims.append(0.5*(dist_in_cm[t] + dist_in_cm[t + 3]))
     # print(dims)
     # print(dist_in_cm)
-    # print(f"vol_weight: {vol_weight}")
+    print(f"vol_weight: {vol_weight}")
     return jsonify({
         'volumetricWeight': vol_weight,
         'length': avg_dims[0],
@@ -132,7 +132,7 @@ def get_dims_from_one_img_1(img_path):
 
 ## for cam without the whitener on the silver tripod
 def get_dims_from_one_img_2(img_path):
-    img = open(img_path)
+    img = open(img_path, 'rb')
     response = requests.post(
     'https://api.remove.bg/v1.0/removebg',
     files={'image_file': img},
@@ -237,7 +237,7 @@ def get_dims_from_one_img_2(img_path):
         avg_dims.append(0.5*(dist_in_cm[t] + dist_in_cm[t + 3]))
     # print(dims)
     # print(dist_in_cm)
-    # print(f"vol_weight: {vol_weight}")
+    print(f"vol_weight: {vol_weight}")
     return jsonify({
         'volumetricWeight': vol_weight,
         'length': avg_dims[0],
