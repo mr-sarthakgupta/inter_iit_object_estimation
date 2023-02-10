@@ -13,9 +13,8 @@ def tup(point):
 
 
 ## for cam with the whitener on the brown tripod
-def get_dims_from_one_img_1(img):
-    cv2.imwrite("with-bg_1.jpg", img)
-    img = open("with-bg_1.jpg")
+def get_dims_from_one_img_1(img_path):
+    img = open(img_path)
     response = requests.post(
     'https://api.remove.bg/v1.0/removebg',
     files={'image_file': img},
@@ -132,9 +131,8 @@ def get_dims_from_one_img_1(img):
 
 
 ## for cam without the whitener on the silver tripod
-def get_dims_from_one_img_2(img):
-    cv2.imwrite("with-bg_2.jpg", img)
-    img = open("with-bg_2.jpg")
+def get_dims_from_one_img_2(img_path):
+    img = open(img_path)
     response = requests.post(
     'https://api.remove.bg/v1.0/removebg',
     files={'image_file': img},
