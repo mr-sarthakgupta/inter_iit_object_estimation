@@ -10,6 +10,8 @@ app = Flask(__name__)
 
 @app.route("/scanner", methods=['POST'])
 def get_volumetric_weight():
+    with open('sample.json', 'w') as outfile:
+        json.dump(json.load(request.files['file']), outfile)
     uploaded_file = open('sample.json')
     uploaded_file = json.load(uploaded_file)
     x1 = base64.b64decode(uploaded_file['images'][0][1:])

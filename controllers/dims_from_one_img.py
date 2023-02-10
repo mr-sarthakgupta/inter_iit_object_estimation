@@ -120,14 +120,14 @@ def get_dims_from_one_img_1(img_path):
     # print(dims)
     # print(dist_in_cm)
     print(f"vol_weight: {vol_weight}")
-    return jsonify({
+    return {
         'volumetricWeight': vol_weight,
         'length': avg_dims[0],
         'breadth': avg_dims[1],
         'height': avg_dims[2],
         'sku': 1,
         'num_dims_seen': len(dist_in_cm)
-    })
+    }
 
 
 ## for cam without the whitener on the silver tripod
@@ -238,14 +238,14 @@ def get_dims_from_one_img_2(img_path):
     # print(dims)
     # print(dist_in_cm)
     print(f"vol_weight: {vol_weight}")
-    return jsonify({
+    return{
         'volumetricWeight': vol_weight,
         'length': avg_dims[0],
         'breadth': avg_dims[1],
         'height': avg_dims[2],
         'sku': 1,
         'num_dims_seen': len(dist_in_cm)
-    })
+    }
 
 
 def integrate_results(json_1, json_2):
