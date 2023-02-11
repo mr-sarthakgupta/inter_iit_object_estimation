@@ -5,7 +5,6 @@ import torch
 import torchvision
 from torchvision import models
 from torchvision.transforms import ToTensor
-import json
 import cv2
 import numpy as np
 
