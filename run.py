@@ -1,5 +1,5 @@
 import base64
-from flask import Flask
+from flask import Flask, request, json
 from flask_cors import CORS
 import torch
 import torchvision
