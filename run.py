@@ -52,7 +52,7 @@ def segment_object(img):
     p, o = 0, 0
     y_size = masks.shape[1]
 
-    threshold = 0.8
+    threshold = 0.5
 
     for i in range(masks.shape[0]):
         obj_mask = (255*(masks[i] > threshold)).astype(np.uint8)
