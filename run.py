@@ -76,11 +76,11 @@ def segment_object(img):
     # cv2.destroyAllWindows()
     object_mask = cv2.morphologyEx(object_mask, cv2.MORPH_CLOSE, kernel)
     platform_mask = cv2.morphologyEx(platform_mask, cv2.MORPH_CLOSE, kernel)
-    cv2.imshow("Final Platform Mask", platform_mask)
-    cv2.waitKey()
-    cv2.imshow("Final Object Mask", object_mask)
-    cv2.waitKey()
-    cv2.destroyAllWindows()
+    # cv2.imshow("Final Platform Mask", platform_mask)
+    # cv2.waitKey()
+    # cv2.imshow("Final Object Mask", object_mask)
+    # cv2.waitKey()
+    # cv2.destroyAllWindows()
     return platform_mask.astype(np.uint8), object_mask.astype(np.uint8)
 
 
