@@ -109,7 +109,7 @@ def measure_object_volume(scale_factor, object_mask):
     
     volume = dimensions_cm[0]*dimensions_cm[1]*dimensions_cm[2]
     
-    return volume
+    return {"volumetricWeight": volume, "length":L_o, "breadth":W_o, "Height":H_o, "sku": "123456"}
 
 def decod(response):
     decoded = base64.b64decode(response["images"][0].encode()[1:])
